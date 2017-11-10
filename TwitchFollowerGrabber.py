@@ -27,7 +27,6 @@ def main():
     while (followerCounter < followersOnPage):
         listOfUserIDs = listOfUserIDs + [loginResponse['data'][followerCounter]['from_id']]
         followerCounter += 1
-        # print(str(followerCounter) + " followers.")
 
     print("This process will take some time depending on how many followers a user has...")
     for twitchID in listOfUserIDs:
