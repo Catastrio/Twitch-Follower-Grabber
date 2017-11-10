@@ -4,12 +4,14 @@ from time import sleep
 def main():
 
     listOfUserLogins = []
+    listOfUserIDs = []
     followerCounter = 0
     twitchIDCounter = 0
     MYOUTPUTFILE = open("ListOfFollowers.txt", "w")
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
     SECONDS = 2
+    terminator = 1
     
     getLoginName = input("What user would you like to grab the followers of?: ")
     print("This process will take some time depending on how many followers a user has...")
@@ -22,18 +24,15 @@ def main():
     loginResponse = requests.get(url=loginURL, data={}, headers=HEADERS).json()
 
     followersOnPage = len(loginResponse['data'])
+    print("Followers on page: " + str(followersOnPage))
 
-    while (followersOnPage != 101):
-        if (followerCounter == 0):
-            listOfUserIds = [loginResponse['data'][followerCounter]['from_id']]
-            followerCounter = followerCounter + 1
-        if (followerCounter < followersOnPage):
-            listOfUserIds = listOfUserIds + [loginResponse['data'][followerCounter]['from_id']]
-            followerCounter = followerCounter + 1
-        elif (followerCounter == followersOnPage):
-            followersOnPage = 101
+    while (followerCounter < followersOnPage):
+        listOfUserIDs = listOfUserIDs + [loginResponse['data'][followerCounter]['from_id']]
+        followerCounter += 1
+        print(str(followerCounter) + " followers.")
 
-    for twitchID in listOfUserIds:
+    print("This process will take some time depending on how many followers a user has...")
+    for twitchID in listOfUserIDs:
         userIdUrl = 'https://api.twitch.tv/helix/users?id=' + twitchID
         userLoginGet = requests.get(url=userIdUrl, data={}, headers=HEADERS).json()
         listOfUserLogins = listOfUserLogins + [userLoginGet['data'][0]['login']]
