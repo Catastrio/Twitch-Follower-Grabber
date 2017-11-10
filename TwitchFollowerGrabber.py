@@ -6,8 +6,10 @@ def main():
     listOfUserLogins = []
     followerCounter = 0
     twitchIDCounter = 0
-    myOutputFile = open("ListOfFollowers.txt", "w")
-    HEADERS = {'Client-ID': 'bmf0qyjn3nerqr67cjukjbh2pa4eyn'}
+    MYOUTPUTFILE = open("ListOfFollowers.txt", "w")
+    CIDFILE = open("config.ini", "r")
+    clientID = CIDFILE.read()
+    HEADERS = {'Client-ID': clientID}
     
     getLoginName = input("What user would you like to grab the followers of?: ")
     print("This process will take some time depending on how many followers a user has...")
@@ -39,7 +41,7 @@ def main():
         time.sleep(2)
 
     for loginName in listOfUserLogins:
-        myOutputFile.write(str(loginName) + "\n")
+        MYOUTPUTFILE.write(str(loginName) + "\n")
 
     print("All done! Your list contains " + str(twitchIDCounter) + " followers!")
 
