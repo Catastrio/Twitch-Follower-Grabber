@@ -8,7 +8,8 @@ def main():
     twitchIDCounter = 0
     MYOUTPUTFILE = open("ListOfFollowers.txt", "w")
     CIDFILE = open("config.ini", "r")
-    HEADERS = {'Client-ID': CIDFILE.read()}
+    clientID = CIDFILE.read()
+    HEADERS = {'Client-ID': clientID}
     
     getLoginName = input("What user would you like to grab the followers of? Try my name, 'Catastrio'!: ")
     print("This process will take some time depending on how many followers a user has...")
