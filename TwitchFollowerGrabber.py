@@ -9,6 +9,7 @@ def main():
     MYOUTPUTFILE = open("ListOfFollowers.txt", "w")
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
+    SECONDS = 2
     
     getLoginName = input("What user would you like to grab the followers of?: ")
     print("This process will take some time depending on how many followers a user has...")
@@ -37,7 +38,7 @@ def main():
         userLoginGet = requests.get(url=userIdUrl, data={}, headers=HEADERS).json()
         listOfUserLogins = listOfUserLogins + [userLoginGet['data'][0]['login']]
         twitchIDCounter = twitchIDCounter + 1
-        time.sleep(2)
+        time.sleep(SECONDS)
 
     for loginName in listOfUserLogins:
         MYOUTPUTFILE.write(str(loginName) + "\n")
