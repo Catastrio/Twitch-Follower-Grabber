@@ -11,7 +11,6 @@ def main():
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
     SECONDS = 2
-    terminator = 1
     
     getLoginName = input("What user would you like to grab the followers of?: ")
     print("This process will take some time depending on how many followers a user has...")
@@ -29,7 +28,7 @@ def main():
     while (followerCounter < followersOnPage):
         listOfUserIDs = listOfUserIDs + [loginResponse['data'][followerCounter]['from_id']]
         followerCounter += 1
-        print(str(followerCounter) + " followers.")
+        # print(str(followerCounter) + " followers.")
 
     print("This process will take some time depending on how many followers a user has...")
     for twitchID in listOfUserIDs:
