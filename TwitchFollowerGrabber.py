@@ -10,7 +10,7 @@ def main():
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
     
-    getLoginName = input("What user would you like to grab the followers of?: ")
+    getLoginName = input("What user would you like to grab the followers of? Try my name, 'Catastrio'!: ")
     print("This process will take some time depending on how many followers a user has...")
     loginURL = 'https://api.twitch.tv/helix/users?login=' + getLoginName
 
@@ -20,24 +20,17 @@ def main():
     loginURL = 'https://api.twitch.tv/helix/users/follows?to_id=' + userLoginID + '&first=100'
     loginResponse = requests.get(url=loginURL, data={}, headers=HEADERS).json()
 
-    followersOnPage = len(loginResponse['data'])
+    listOfUserIds = [userID for userID in [loginResponse['data'][0]['from_id']]]
+    
+    '''followersOnPage = len(loginResponse['data'])
 
-    while (followersOnPage != 101):
-        if (followerCounter == 0):
+    while (followerCounter < followersOnPage):
             listOfUserIds = [loginResponse['data'][followerCounter]['from_id']]
-            followerCounter = followerCounter + 1
-        if (followerCounter < followersOnPage):
-            listOfUserIds = listOfUserIds + [loginResponse['data'][followerCounter]['from_id']]
-            followerCounter = followerCounter + 1
-        elif (followerCounter == followersOnPage):
-            followersOnPage = 101
+            followerCounter += 1'''
 
-    for twitchID in listOfUserIds:
-        userIdUrl = 'https://api.twitch.tv/helix/users?id=' + twitchID
-        userLoginGet = requests.get(url=userIdUrl, data={}, headers=HEADERS).json()
-        listOfUserLogins = listOfUserLogins + [userLoginGet['data'][0]['login']]
-        twitchIDCounter = twitchIDCounter + 1
-        time.sleep(2)
+    userIdUrl = 'https://api.twitch.tv/helix/users?id=' + twitchID
+    userLoginGet = requests.get(url=userIdUrl, data={}, headers=HEADERS).json()
+    listOfUserLogins = [twitchID for twitchID in [userLoginGet['data'][0]['login']]]
 
     for loginName in listOfUserLogins:
         MYOUTPUTFILE.write(str(loginName) + "\n")
