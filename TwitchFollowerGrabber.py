@@ -10,23 +10,23 @@ def main():
     MYOUTPUTFILE = open("ListOfFollowers.txt", "w")
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
-    SECONDS = 2
+    SECONDSTOSLEEP = 2
     
     print("To test to see if this program works, try following me on Twitch.tv/Catastrio and then using 'Catastrio' as a test!\n")
     loginName = input("What user would you like to grab the followers of?: ")
-    loginURL = 'https://api.twitch.tv/helix/users?login=' + loginName
+    userLoginEndpoint = 'https://api.twitch.tv/helix/users?login=' + loginName
 
-    loginURLResponse = requests.get(url=loginURL, data={}, headers=HEADERS).json()
-    userLoginID = loginURLResponse['data'][0]['id']
+    userLoginResponse = requests.get(url=userLoginEndpoint, data={}, headers=HEADERS).json()
+    userLoginID = userLoginResponse['data'][0]['id']
 
-    loginURL = 'https://api.twitch.tv/helix/users/follows?to_id=' + userLoginID + '&first=100'
-    loginResponse = requests.get(url=loginURL, data={}, headers=HEADERS).json()
+    userFollowersEndpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + userLoginID + '&first=100'
+    userFollowersResponse = requests.get(url=userFollowersEndpoint, data={}, headers=HEADERS).json()
 
-    followersOnPage = len(loginResponse['data'])
+    followersOnPage = len(userFollowersResponse['data'])
     print("Followers on page: " + str(followersOnPage))
 
     while (followerCounter < followersOnPage):
-        listOfUserIDs = listOfUserIDs + [loginResponse['data'][followerCounter]['from_id']]
+        listOfUserIDs = listOfUserIDs + [userFollowersResponse['data'][followerCounter]['from_id']]
         followerCounter += 1
 
     print("This process will take some time depending on how many followers a user has...")
@@ -36,7 +36,7 @@ def main():
         listOfUserLogins = listOfUserLogins + [userIdResponse['data'][0]['login']]
         twitchIDCounter += 1
         print(str(twitchIDCounter) + " out of " + str(len(listOfUserIDs)))
-        time.sleep(SECONDS)
+        time.sleep(SECONDSTOSLEEP)
 
     for loginName in listOfUserLogins:
         MYOUTPUTFILE.write(str(loginName) + "\n")
