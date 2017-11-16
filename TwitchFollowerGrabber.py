@@ -43,4 +43,5 @@ def main():
 
     print("All done! Your list contains " + str(twitchIDCounter) + " followers!")
 
-main()
+if __name__ == '__main__':
+    main()
