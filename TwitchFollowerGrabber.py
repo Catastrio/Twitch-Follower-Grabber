@@ -31,9 +31,6 @@ def main():
 
     print("This process will take some time depending on how many followers a user has...")
     for twitchID in listOfUserIDs:
-        userIdUrl = 'https://api.twitch.tv/helix/users?id=' + twitchID
-        userLoginGet = requests.get(url=userIdUrl, data={}, headers=HEADERS).json()
-        listOfUserLogins = listOfUserLogins + [userLoginGet['data'][0]['login']]
         twitchIDCounter += 1
         print(str(twitchIDCounter) + " out of " + str(len(listOfUserIDs)))
         time.sleep(SECONDS)
