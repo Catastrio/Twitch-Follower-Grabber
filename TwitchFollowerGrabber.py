@@ -7,7 +7,7 @@ def main():
     listOfUserIDs = []
     followerCounter = 0
     twitchIDCounter = 0
-    MYOUTPUTFILE = open("ListOfFollowers.txt", "w")
+    MYOUTPUTFILE = open("List_of_followers.txt", "w")
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
     SECONDSTOSLEEP = 2
