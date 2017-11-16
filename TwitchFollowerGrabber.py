@@ -12,6 +12,7 @@ def main():
     HEADERS = {'Client-ID': CIDFILE.read()}
     SECONDS = 2
     
+    print("To test to see if this program works, try following me on Twitch.tv/Catastrio and then using 'Catastrio' as a test!\n")
     getLoginName = input("What user would you like to grab the followers of?: ")
     loginURL = 'https://api.twitch.tv/helix/users?login=' + getLoginName
 
