@@ -13,8 +13,8 @@ def main():
     SECONDS = 2
     
     print("To test to see if this program works, try following me on Twitch.tv/Catastrio and then using 'Catastrio' as a test!\n")
-    getLoginName = input("What user would you like to grab the followers of?: ")
-    loginURL = 'https://api.twitch.tv/helix/users?login=' + getLoginName
+    loginName = input("What user would you like to grab the followers of?: ")
+    loginURL = 'https://api.twitch.tv/helix/users?login=' + loginName
 
     loginURLResponse = requests.get(url=loginURL, data={}, headers=HEADERS).json()
     userLoginID = loginURLResponse['data'][0]['id']
@@ -31,6 +31,9 @@ def main():
 
     print("This process will take some time depending on how many followers a user has...")
     for twitchID in listOfUserIDs:
+        userIdEndpoint = 'https://api.twitch.tv/helix/users?id=' + twitchID
+        userIdResponse = requests.get(url=userIdEndpoint, data={}, headers=HEADERS).json()
+        listOfUserLogins = listOfUserLogins + [userIdResponse['data'][0]['login']]
         twitchIDCounter += 1
         print(str(twitchIDCounter) + " out of " + str(len(listOfUserIDs)))
         time.sleep(SECONDS)
