@@ -13,13 +13,13 @@ def main():
     SECONDSTOSLEEP = 2
     
     print("To test to see if this program works, try following me on Twitch.tv/Catastrio and then using 'Catastrio' as a test!\n")
-    loginName = input("What user would you like to grab the followers of?: ")
-    userLoginEndpoint = 'https://api.twitch.tv/helix/users?login=' + loginName
+    userLoginName = input("What user would you like to grab the followers of?: ")
+    userLoginEndpoint = 'https://api.twitch.tv/helix/users?login=' + userLoginName
 
     userLoginResponse = requests.get(url=userLoginEndpoint, data={}, headers=HEADERS).json()
-    userLoginID = userLoginResponse['data'][0]['id']
+    userLoginNameId = userLoginResponse['data'][0]['id']
 
-    userFollowersEndpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + userLoginID + '&first=100'
+    userFollowersEndpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + userLoginNameId + '&first=100'
     userFollowersResponse = requests.get(url=userFollowersEndpoint, data={}, headers=HEADERS).json()
 
     followersOnPage = len(userFollowersResponse['data'])
