@@ -7,7 +7,7 @@ def main():
     listOfUserIDs = []
     followerCounter = 0
     twitchIDCounter = 0
-    MYOUTPUTFILE = open("List_of_followers.txt", "w")
+    MY_OUTPUT_FILE = open("ListOfFollowers.txt", "w")
     CIDFILE = open("config.ini", "r")
     HEADERS = {'Client-ID': CIDFILE.read()}
     SECONDSTOSLEEP = 2
@@ -25,9 +25,7 @@ def main():
     followersOnPage = len(userFollowersResponse['data'])
     print("Followers on page: " + str(followersOnPage))
 
-    while (followerCounter < followersOnPage):
-        listOfUserIDs = listOfUserIDs + [userFollowersResponse['data'][followerCounter]['from_id']]
-        followerCounter += 1
+    listOfUserIDs = [ID['from_id'] for ID in userFollowersResponse['data']]
 
     print("This process will take some time depending on how many followers a user has...")
     for twitchID in listOfUserIDs:
@@ -39,7 +37,7 @@ def main():
         time.sleep(SECONDSTOSLEEP)
 
     for loginName in listOfUserLogins:
-        MYOUTPUTFILE.write(str(loginName) + "\n")
+        MY_OUTPUT_FILE.write(str(loginName) + "\n")
 
     print("All done! Your list contains " + str(twitchIDCounter) + " followers!")
 
