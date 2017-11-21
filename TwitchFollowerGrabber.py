@@ -9,7 +9,6 @@ def main():
     followerCounter = 0
     twitchIDCounter = 0
     
-
     MY_OUTPUT_FILE = open("ListOfFollowers.txt", "w")
     SECONDSTOSLEEP = 2
     DATA_INDEX = 0
@@ -26,8 +25,6 @@ def main():
     userLoginResponse = requests.get(url=userLoginEndpoint, data={}, headers=HEADERS).json()
     data = userLoginResponse['data'][DATA_INDEX]
     user_id = data['id']
-    
-    #userLoginNameId = userLoginResponse['data'][DATA_INDEX]['id']
 
     userFollowersEndpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + user_id + '&first=100'
     userFollowersResponse = requests.get(url=userFollowersEndpoint, data={}, headers=HEADERS).json()
