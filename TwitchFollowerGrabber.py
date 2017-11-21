@@ -19,20 +19,20 @@ def main():
         HEADERS = {'Client-ID': config['DEFAULT']['Client_id']}
     
     print("To test to see if this program works, try following me on Twitch.tv/Catastrio and then using 'Catastrio' as a test!\n")
-    userLoginName = input("What user would you like to grab the followers of?: ")
-    userLoginEndpoint = 'https://api.twitch.tv/helix/users?login=' + userLoginName
+    twitchName = input("What user would you like to grab the followers of?: ")
+    userEndpoint = 'https://api.twitch.tv/helix/users?login=' + twitchName
 
-    userLoginResponse = requests.get(url=userLoginEndpoint, data={}, headers=HEADERS).json()
-    data = userLoginResponse['data'][DATA_INDEX]
+    userResponse = requests.get(url=userEndpoint, data={}, headers=HEADERS).json()
+    data = userResponse['data'][DATA_INDEX]
     user_id = data['id']
 
-    userFollowersEndpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + user_id + '&first=100'
-    userFollowersResponse = requests.get(url=userFollowersEndpoint, data={}, headers=HEADERS).json()
+    userFollowsEndpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + user_id + '&first=100'
+    userFollowsResponse = requests.get(url=userFollowsEndpoint, data={}, headers=HEADERS).json()
 
-    followersOnPage = len(userFollowersResponse['data'])
+    followersOnPage = len(userFollowsResponse['data'])
     print("Followers on page: " + str(followersOnPage))
 
-    listOfUserIDs = [ID['from_id'] for ID in userFollowersResponse['data']]
+    listOfUserIDs = [ID['from_id'] for ID in userFollowsResponse['data']]
 
     print("This process will take some time depending on how many followers a user has...")
     for twitchID in listOfUserIDs:
