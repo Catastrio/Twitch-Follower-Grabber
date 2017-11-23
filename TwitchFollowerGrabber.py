@@ -33,6 +33,7 @@ def main():
     followers_on_page = len(user_follows_response)
     print("Followers on page: " + str(followers_on_page))
 
+    list_of_user_ids = [follower_edge['from_id'] for follower_edge in user_follows_response]
 
     print("This process will take some time depending on how many followers a user has...")
     for twitch_id in list_of_user_ids:
