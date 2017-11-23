@@ -28,12 +28,12 @@ def main():
     user_id = data['id']
 
     user_follows_endpoint = 'https://api.twitch.tv/helix/users/follows?to_id=' + user_id + '&first=100'
-    user_follows_response = requests.get(url=user_follows_endpoint, data={}, headers=HEADERS).json()
+    user_follows_response = requests.get(url=user_follows_endpoint, data={}, headers=HEADERS).json()['data']
 
-    followers_on_page = len(user_follows_response['data'])
+    followers_on_page = len(user_follows_response)
     print("Followers on page: " + str(followers_on_page))
 
-    list_of_user_ids = [ID['from_id'] for ID in user_follows_response['data']]
+    list_of_user_ids = [ID['from_id'] for ID in user_follows_response]
 
     print("This process will take some time depending on how many followers a user has...")
     for twitch_id in list_of_user_ids:
@@ -47,7 +47,7 @@ def main():
     for login_name in list_of_user_logins:
         MY_OUTPUT_FILE.write(str(login_name) + "\n")
 
-    print("All done! Your list contains " + str(twitchIDCounter) + " followers!")
+    print("All done! Your list contains " + str(twitch_id_counter) + " followers!")
 
 if __name__ == '__main__':
     main()
