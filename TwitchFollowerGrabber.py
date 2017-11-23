@@ -12,10 +12,10 @@ def main():
     MY_OUTPUT_FILE = open("ListOfFollowers.txt", "w")
     SECONDS_TO_SLEEP = 2
     DATA_INDEX = 0
-    CIDFILE = "config.ini"
+    CONFIGFILE = "config.ini"
 
-    with open(CIDFILE) as f_obj:
-        config.read(CIDFILE)
+    with open(CONFIGFILE) as f_obj:
+        config.read(CONFIGFILE)
         HEADERS = {'Client-ID': config['DEFAULT']['Client_id']}
     
     print("To test to see if this program works, try following me on Twitch.tv/Catastrio and then using 'Catastrio' as a test!\n")
