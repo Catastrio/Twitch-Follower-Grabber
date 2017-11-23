@@ -10,7 +10,7 @@ def main():
     twitchIDCounter = 0
     
     MY_OUTPUT_FILE = open("ListOfFollowers.txt", "w")
-    SECONDSTOSLEEP = 2
+    SECONDS_TO_SLEEP = 2
     DATA_INDEX = 0
     CIDFILE = "config.ini"
 
