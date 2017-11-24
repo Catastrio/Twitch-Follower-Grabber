@@ -5,7 +5,7 @@ def main():
     
     config = configparser.ConfigParser()
     list_of_user_logins = []
-    list_of_usser_ids = []
+    list_of_user_ids = []
     follower_counter = 0
     twitch_id_counter = 0
     
