@@ -90,8 +90,6 @@ def main():
     username = input("What user would you like to get the name of?: ")
     follow_list = get_followers_for_username(username)
     convert_id_to_username(follow_list)
-    
-   
 
 if __name__ == '__main__':
     main()
